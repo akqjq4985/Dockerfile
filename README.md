@@ -84,5 +84,19 @@ To create and run a Docker container using the `run.sh` file, follow these steps
 
     This command will list all running containers. You should see `my-docker-container` in the list.
 
+6. **Run the `setup.sh` file**: To automatically install the necessary libraries and packages, you can use the `setup.sh` script. Execute the script with the following command:
 
-By following these steps, you can easily create and run a Docker container using the `run.sh` file.
+    ```sh
+    #!/bin/bash
+    CONTAINER_NAME=$1
+
+    echo "CONTAINER_NAME: $CONTAINER_NAME"
+
+    # Install system packages
+    docker exec -u 0 $CONTAINER_NAME bash -c "apt-get update -y"
+
+    # Install python packages
+    docker exec -u 0 $CONTAINER_NAME python3 -m pip install --no-cache-dir <package_name>
+    docker exec -u 0 $CONTAINER_NAME pip install <package_name>
+    ```
+    This will ensure that all required libraries and packages are installed in the Docker container.
