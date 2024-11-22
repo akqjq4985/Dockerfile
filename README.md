@@ -2,7 +2,7 @@
 
 ## Dockerfile
 ### How to build docker image
-```
+```sh
 docker build --build-arg WORKDIR_PATH=<project_folder_name> -t my_image_name .
 
 # Example: docker build --build-arg WORKDIR_PATH=/home/ftp_home/inrsteg -t my_image_name .
@@ -100,3 +100,29 @@ To create and run a Docker container using the `run.sh` file, follow these steps
     docker exec -u 0 $CONTAINER_NAME pip install <package_name>
     ```
     This will ensure that all required libraries and packages are installed in the Docker container.
+
+## How to use push.sh file
+
+Run the `push.sh` file to build and push the Docker image.
+
+```sh
+#!/bin/bash
+# usage: sh push.sh inrsteg inrsteg v1.0.0 "description for this version"
+
+DOCKER_NAME=$1
+WANTED_PACKAGE_NAME=$2
+TAG=$3
+DESCRIPTION=$4
+GITHUB_USER_NAME="akqjq4985"
+
+echo "DOCKER_NAME: $DOCKER_NAME"
+echo "WANTED_PACKAGE_NAME: $WANTED_PACKAGE_NAME"
+echo "TAG: $TAG"
+echo "DESCRIPTION: $DESCRIPTION"
+
+docker commit --change "LABEL org.opencontainers.image.description='$DESCRIPTION'" $DOCKER_NAME $WANTED_PACKAGE_NAME:$TAG
+docker tag $WANTED_PACKAGE_NAME:$TAG ghcr.io/$GITHUB_USER_NAME/$WANTED_PACKAGE_NAME:$TAG
+docker push ghcr.io/$GITHUB_USER_NAME/$WANTED_PACKAGE_NAME:$TAG
+echo "Docker image has been successfully committed, tagged, and pushed!"
+```
+You can verify that the image is pushed to GitHub Container Registry by visiting the Packages section of your GitHub repository.
