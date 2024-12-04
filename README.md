@@ -35,8 +35,8 @@ To create and run a Docker container using the `run.sh` file, follow these steps
     --volume /etc/shadow:/etc/shadow:ro \
     --volume /etc/group:/etc/group:ro \
     --volume /etc/sudoers.d/:/etc/sudoers.d/ \
-    --volume <project_folder_name>:/workspace \
-    --workdir /workspace \
+    --volume <project_folder_name>:<project_folder_name> \
+    --workdir <project_folder_name> \
     --ipc=host \
     --gpus all \
     --name $CONTAINER_NAME \

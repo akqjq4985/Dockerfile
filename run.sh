@@ -18,8 +18,8 @@ docker run -itd \
 --volume /etc/shadow:/etc/shadow:ro \
 --volume /etc/group:/etc/group:ro \
 --volume /etc/sudoers.d/:/etc/sudoers.d/ \
---volume /home/sojeong.song:/workspace \
---workdir /workspace \
+--volume /home/sojeong.song:/home/sojeong.song \
+--workdir /home/sojeong.song \
 --ipc=host \
 --gpus all \
 --name $CONTAINER_NAME \
